@@ -1,4 +1,4 @@
-![Imagem inicial da tela](src/assets/readme.png)
+![Imagem inicial da tela](https://www.dropbox.com/scl/fi/2rrq6mddzffiyadbjrn92/readme.PNG?rlkey=fn3s3tvymgpk3scsxrkx1qca0&dl=0)
 
 # Wizzi
 
