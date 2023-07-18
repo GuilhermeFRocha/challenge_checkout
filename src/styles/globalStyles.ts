@@ -1,19 +1,10 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
-interface ThemeProps {
-  theme: {
-    body: string;
-    text: string;
-  }
-}
-
-const GlobalStyle = createGlobalStyle<ThemeProps>`
+const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: ${props => props.theme.body};
-    color: ${props => props.theme.text};
   }
 `;
 

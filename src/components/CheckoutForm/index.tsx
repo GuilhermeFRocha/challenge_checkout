@@ -37,10 +37,12 @@ export default function CheckoutForm() {
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set<number>());
 
+  // Verifica se um determinado passo foi pulado durante o processo do formulário.
   const isStepSkipped = (step: number) => {
     return skipped.has(step);
   };
 
+  // Função de callback para tratar o envio do formulário. Imprime os valores do formulário no console.
   const onSubmitForm = useCallback((values: any) => {
     console.log(values);
   }, []);
@@ -56,14 +58,20 @@ export default function CheckoutForm() {
         : validationPaymentInfoStep,
   });
 
+  // Controla a ação de voltar para o passo anterior do formulário.
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  // Reinicia o processo do formulário, voltando para o primeiro passo.
   const handleReset = () => {
     setActiveStep(0);
+    formik.setValues(initialState);
   };
 
+  // Função de callback para avançar para o próximo passo do formulário.
+  // Verifica se o formulário é válido antes de avançar. Se houver erros, exibe uma mensagem de erro.
+  // Caso contrário, atualiza o estado para avançar e marca o passo como não pulado.
   const handleNext = useCallback(() => {
     formik.validateForm().then((errors) => {
       if (Object.keys(errors).length > 0) {

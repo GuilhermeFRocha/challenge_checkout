@@ -11,6 +11,7 @@ export default function PaymentInfoStep({
   values,
   errors,
 }: PaymentInfoStepProps) {
+  // É manipulador de evento para campos de entrada (inputs) no formulário. Recebe o nome de um campo e um evento de mudança (ChangeEvent), e atualiza o valor do campo no estado do formulário utilizando a função getFieldHelpers passada como prop.
   const handleChange = (
     field: string,
     event: ChangeEvent<HTMLInputElement>

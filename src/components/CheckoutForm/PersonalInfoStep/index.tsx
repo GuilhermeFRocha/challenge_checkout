@@ -14,8 +14,7 @@ export default function PersonalInfoStep({
   setValues,
   setFieldError,
 }: PersonalInfoStepProps) {
-  const [loading, setLoading] = useState(false);
-
+  // É manipulador de evento para campos de entrada (inputs) no formulário. Recebe o nome de um campo e um evento de mudança (ChangeEvent), e atualiza o valor do campo no estado do formulário utilizando a função getFieldHelpers passada como prop.
   const handleChange = (
     field: string,
     event: ChangeEvent<HTMLInputElement>
@@ -24,6 +23,7 @@ export default function PersonalInfoStep({
     getFieldHelpers(field).setValue(value);
   };
 
+  // Realiza uma requisição assíncrona para obter os dados de um endereço a partir de um CEP informado, utilizando a API do ViaCEP. Retorna os dados de endereço, incluindo logradouro, bairro, estado e cidade, ou lança um erro caso o CEP não seja encontrado.
   const fetchAddress = async (cep: string) => {
     try {
       const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
@@ -37,11 +37,11 @@ export default function PersonalInfoStep({
     }
   };
 
+  // É um manipulador de evento para o campo de CEP quando este perde o foco (blur). Extrai apenas os dígitos do CEP e verifica se possui o tamanho esperado. Em seguida, realiza uma busca do endereço associado a esse CEP, utilizando a função fetchAddress. Se a busca for bem-sucedida, atualiza os campos de endereço no estado do formulário.
   const handleCepBlur = async (event: ChangeEvent<HTMLInputElement>) => {
     const cep = event.target.value.replace(/\D/g, "");
     if (cep.length === 8) {
       try {
-        setLoading(true);
         const addressData = await fetchAddress(cep);
 
         setFieldTouched("zipCode", true);
@@ -52,10 +52,8 @@ export default function PersonalInfoStep({
           state: addressData.uf,
           city: addressData.localidade,
         });
-        setLoading(false);
       } catch (error: any) {
         setFieldError("zipCode", error.message);
-        setLoading(false);
       }
     }
   };

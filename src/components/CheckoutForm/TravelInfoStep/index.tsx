@@ -4,8 +4,8 @@ import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import { ListItemText, TextField } from "@mui/material";
 
 import DatePicker from "../../DatePicker";
-import { FormContent, InputContainer, ListItemsCity } from "../styled";
 import { City, DataCity, TravelInfoStepProps } from "./types";
+import { FormContent, InputContainer, ListItemsCity } from "../styled";
 
 export default function TravelInfoStep({
   getFieldHelpers,
@@ -15,9 +15,12 @@ export default function TravelInfoStep({
   const [cityGoneSuggestions, setCityGoneSuggestions] = useState<City[]>([]);
   const [cityBackSuggestions, setCityBackSuggestions] = useState<City[]>([]);
 
+  //Atualiza o valor de uma data relacionada a uma viagem no estado do formulário.
   const handleDateChange = (field: string, newValue: MaterialUiPickersDate) =>
     getFieldHelpers(field).setValue(newValue, false);
 
+  // Lida com a mudança de valor nos campos de entrada de texto do formulário.
+  // Atualiza o valor do campo no estado do formulário e busca sugestões de cidades na API do IBGE para exibir como opções ao usuário.
   const handleChange = (
     field: string,
     event: ChangeEvent<HTMLInputElement>
@@ -31,7 +34,6 @@ export default function TravelInfoStep({
       .then((response) => response.json())
       .then((data) => {
         // Atualizar as sugestões de cidade com base na resposta da API
-
         const cities: City[] = data
           .filter((city: DataCity) =>
             city.nome.toLowerCase().startsWith(value.toLowerCase())
@@ -53,8 +55,10 @@ export default function TravelInfoStep({
       });
   };
 
+  // Lida com a seleção de uma cidade nas sugestões exibidas ao usuário.
+  // Atualiza o valor do campo no estado do formulário com a cidade e estado selecionados, limpando as sugestões de cidades correspondentes para que não sejam mais exibidas após a seleção.
   const handleCitySelection = (field: string, city: City) => {
-    getFieldHelpers(field).setValue(city.name);
+    getFieldHelpers(field).setValue(`${city.name} - ${city.state}`);
     if (field === "origin") {
       setCityGoneSuggestions([]);
     } else if (field === "destination") {

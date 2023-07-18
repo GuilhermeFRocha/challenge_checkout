@@ -3,7 +3,10 @@ import valid from "card-validator";
 import { cpf } from "cpf-cnpj-validator";
 
 export const validationTravelInfoStep = yup.object({
-  startDate: yup.string().required("Campo obrigatório"),
+  startDate: yup
+    .string()
+    .required("Campo obrigatório")
+    .min(1, "O valor mínimo é 1"),
   returnDate: yup.string().required("Campo obrigatório"),
   amountAdults: yup
     .string()
