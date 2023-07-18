@@ -1,7 +1,7 @@
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import { KeyboardDatePickerProps } from "@material-ui/pickers";
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 interface DatePickerProps extends KeyboardDatePickerProps {
   errorMessage?: string;
@@ -24,7 +24,7 @@ const DatePicker = (props: DatePickerProps) => {
         maxDateMessage={errorMessage}
         error={hasError}
         inputProps={{
-          format: "dd/MM/yyyy"
+          format: "dd/MM/yyyy",
         }}
         format="dd/MM/yyyy"
         cancelLabel="Cancelar"

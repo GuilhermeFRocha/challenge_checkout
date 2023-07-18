@@ -33,6 +33,10 @@ export const FormContainer = styled.div`
   h2 {
     font-size: 2rem;
     margin-bottom: 2rem;
+
+    @media (max-width: 345px) {
+      font-size: 1.5rem;
+    }
   }
 `;
 
@@ -147,6 +151,15 @@ export const ListItemsCity = styled.div`
   z-index: 2;
   border-radius: 15px;
   padding: 10px;
+
+  div {
+    cursor: pointer;
+
+    :hover {
+      opacity: 0.8;
+      transition: 0.3s;
+    }
+  }
 `;
 
 export const ContainerCheckout = styled.div`

@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useRef, useEffect } from "react";
 
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import { ListItemText, TextField } from "@mui/material";
@@ -14,6 +14,38 @@ export default function TravelInfoStep({
 }: TravelInfoStepProps) {
   const [cityGoneSuggestions, setCityGoneSuggestions] = useState<City[]>([]);
   const [cityBackSuggestions, setCityBackSuggestions] = useState<City[]>([]);
+  const cityGoneSuggestionsRef = useRef(null);
+  const cityBackSuggestionsRef = useRef(null);
+
+  // A função handleClickOutside é criada para verificar se o evento de clique ocorre fora dos elementos mencionados e, em seguida, limpar suas sugestões correspondentes, se necessário.
+  // No final do ciclo de vida do componente, o event listener é removido para evitar vazamentos de memória.
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        cityGoneSuggestionsRef.current &&
+        !(cityGoneSuggestionsRef.current as HTMLElement).contains(
+          event.target as Node
+        )
+      ) {
+        setCityGoneSuggestions([]);
+      }
+
+      if (
+        cityBackSuggestionsRef.current &&
+        !(cityBackSuggestionsRef.current as HTMLElement).contains(
+          event.target as Node
+        )
+      ) {
+        setCityBackSuggestions([]);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   //Atualiza o valor de uma data relacionada a uma viagem no estado do formulário.
   const handleDateChange = (field: string, newValue: MaterialUiPickersDate) =>
@@ -78,6 +110,7 @@ export default function TravelInfoStep({
           }}
           errorMessage={errors.startDate}
           hasError={!!errors.startDate}
+          helperText={errors.startDate}
           minDate={new Date().toISOString()}
           autoOk
         />
@@ -90,6 +123,7 @@ export default function TravelInfoStep({
           }}
           errorMessage={errors.returnDate}
           hasError={!!errors.returnDate}
+          helperText={errors.returnDate}
           minDate={
             values.startDate ? values.startDate : new Date().toISOString()
           }
@@ -156,12 +190,9 @@ export default function TravelInfoStep({
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
             handleChange("origin", event)
           }
-          // onBlur={handleBlur}
-          // onFocus={() => setFieldTouched('nome', false)}
-          // disabled={fetchLoading}
           InputProps={{
             endAdornment: (
-              <div>
+              <div ref={cityGoneSuggestionsRef}>
                 {cityGoneSuggestions.length > 0 && (
                   <ListItemsCity>
                     {cityGoneSuggestions.map((city) => (
@@ -195,12 +226,9 @@ export default function TravelInfoStep({
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
             handleChange("destination", event)
           }
-          // onBlur={handleBlur}
-          // onFocus={() => setFieldTouched('nome', false)}
-          // disabled={fetchLoading}
           InputProps={{
             endAdornment: (
-              <div>
+              <div ref={cityBackSuggestionsRef}>
                 {cityBackSuggestions.length > 0 && (
                   <ListItemsCity>
                     {cityBackSuggestions.map((city) => (
@@ -236,9 +264,6 @@ export default function TravelInfoStep({
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
             handleChange("leadName", event)
           }
-          // onBlur={handleBlur}
-          // onFocus={() => setFieldTouched('nome', false)}
-          // disabled={fetchLoading}
         />
       </InputContainer>
 
@@ -255,9 +280,6 @@ export default function TravelInfoStep({
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
             handleChange("leadEmail", event)
           }
-          // onBlur={handleBlur}
-          // onFocus={() => setFieldTouched('nome', false)}
-          // disabled={fetchLoading}
         />
       </InputContainer>
     </FormContent>

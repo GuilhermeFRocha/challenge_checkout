@@ -2,6 +2,7 @@ import * as yup from "yup";
 import valid from "card-validator";
 import { cpf } from "cpf-cnpj-validator";
 
+// Travel valid data
 export const validationTravelInfoStep = yup.object({
   startDate: yup
     .string()
@@ -12,7 +13,7 @@ export const validationTravelInfoStep = yup.object({
     .string()
     .required("Campo obrigatório")
     .nullable()
-    .test("is-valid", "Deve conter pelo menos um passageiro", (value) => {
+    .test("is-valid", "No mínimo 1 passageiro!", (value) => {
       if (value && /^\d+$/.test(value)) {
         const numberValue = parseInt(value, 10);
         return numberValue > 0;
@@ -25,6 +26,8 @@ export const validationTravelInfoStep = yup.object({
   leadName: yup.string().required("Campo obrigatório"),
   leadEmail: yup.string().required("Campo obrigatório").email("Email inválido"),
 });
+
+// Personal valid data
 export const validationPersonalInfoStep = yup.object({
   firstName: yup.string().required("Campo obrigatório"),
   lastName: yup.string().required("Campo obrigatório"),
@@ -42,6 +45,8 @@ export const validationPersonalInfoStep = yup.object({
   city: yup.string().required("Campo obrigatório"),
   state: yup.string().required("Campo obrigatório"),
 });
+
+// Payment valid data
 export const validationPaymentInfoStep = yup.object({
   cardName: yup.string().required("Campo obrigatório"),
   cardNumber: yup

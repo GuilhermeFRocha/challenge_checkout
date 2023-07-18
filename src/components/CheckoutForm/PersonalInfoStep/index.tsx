@@ -1,10 +1,10 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 
 import { TextField } from "@mui/material";
 import InputMask from "react-input-mask";
 
-import { FormContent, InputContainer } from "../styled";
 import { InputMaskProps, PersonalInfoStepProps } from "./types";
+import { FormContent, InputContainer } from "../styled";
 
 export default function PersonalInfoStep({
   getFieldHelpers,
@@ -14,7 +14,7 @@ export default function PersonalInfoStep({
   setValues,
   setFieldError,
 }: PersonalInfoStepProps) {
-  // É manipulador de evento para campos de entrada (inputs) no formulário. Recebe o nome de um campo e um evento de mudança (ChangeEvent), e atualiza o valor do campo no estado do formulário utilizando a função getFieldHelpers passada como prop.
+  // É um manipulador de evento para campos de entrada (inputs) no formulário. Recebe o nome de um campo e um evento de mudança (ChangeEvent), e atualiza o valor do campo no estado do formulário utilizando a função getFieldHelpers passada como prop.
   const handleChange = (
     field: string,
     event: ChangeEvent<HTMLInputElement>

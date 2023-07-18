@@ -50,6 +50,7 @@ export default function CheckoutForm() {
   const formik = useFormik({
     initialValues: initialState,
     onSubmit: onSubmitForm,
+    validateOnChange: false,
     validationSchema:
       activeStep === 0
         ? validationTravelInfoStep
