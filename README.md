@@ -1,5 +1,4 @@
-![Imagem inicial da tela](https://www.dropbox.com/scl/fi/2rrq6mddzffiyadbjrn92/readme.PNG?rlkey=fn3s3tvymgpk3scsxrkx1qca0&dl=0)
-
+![Imagem inicial da tela](https://i.imgur.com/xNNueXX.png)
 # Wizzi
 
 O projeto Wizzi é uma solução inovadora e eficiente que visa simplificar e melhorar o processo de checkout, proporcionando uma experiência de compra mais fluida e agradável para os usuários.
