@@ -36,6 +36,7 @@ const steps = ["Dados da viagem", "Dados pessoais", "Pagamento"];
 export default function CheckoutForm() {
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set<number>());
+  const [submitted, setSubmitted] = useState(false);
 
   // Verifica se um determinado passo foi pulado durante o processo do formulário.
   const isStepSkipped = (step: number) => {
@@ -50,7 +51,8 @@ export default function CheckoutForm() {
   const formik = useFormik({
     initialValues: initialState,
     onSubmit: onSubmitForm,
-    validateOnChange: false,
+    validateOnChange: submitted,
+    validateOnBlur: submitted,
     validationSchema:
       activeStep === 0
         ? validationTravelInfoStep
@@ -77,9 +79,11 @@ export default function CheckoutForm() {
     formik.validateForm().then((errors) => {
       if (Object.keys(errors).length > 0) {
         toast.error("Corrija os erros antes de prosseguir");
+        setSubmitted(true);
       } else {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         setSkipped(skipped);
+        setSubmitted(false);
       }
     });
   }, [formik, skipped]);

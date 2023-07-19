@@ -48,8 +48,9 @@ export default function TravelInfoStep({
   }, []);
 
   //Atualiza o valor de uma data relacionada a uma viagem no estado do formulário.
-  const handleDateChange = (field: string, newValue: MaterialUiPickersDate) =>
-    getFieldHelpers(field).setValue(newValue, false);
+  const handleDateChange = (field: string, newValue: MaterialUiPickersDate) => {
+    getFieldHelpers(field).setValue(newValue);
+  };
 
   // Lida com a mudança de valor nos campos de entrada de texto do formulário.
   // Atualiza o valor do campo no estado do formulário e busca sugestões de cidades na API do IBGE para exibir como opções ao usuário.
@@ -103,6 +104,7 @@ export default function TravelInfoStep({
       <InputContainer items={2}>
         <DatePicker
           name="startDate"
+          id="startDate"
           label="Data de ida"
           value={values.startDate}
           onChange={(newDate) => {
@@ -116,6 +118,7 @@ export default function TravelInfoStep({
         />
         <DatePicker
           name="returnDate"
+          id="returnDate"
           label="Data de volta"
           value={values.returnDate}
           onChange={(newDate) => {
